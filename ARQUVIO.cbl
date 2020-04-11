@@ -1,0 +1,40 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ARQUIVO.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+       SELECT ARQUIVO
+           ASSIGN TO "Nomes.dat"
+           ORGANIZATION IS LINE SEQUENTIAL
+           ACCESS IS SEQUENTIAL
+           FILE STATUS IS WS-FILESTATUS.
+       DATA DIVISION.
+       FILE SECTION.
+       FD ARQUIVO.
+       01 REG-DATA.
+           05 ALU-NUM PIC 9(3).
+           05 ALU-NOME PIC A(25).
+       WORKING-STORAGE SECTION.
+           77 WS-FILESTATUS PIC 99.
+           77 WS-FLAG PIC 9 VALUE 0.
+           01 WS-ALU.
+               05 WS-ALUNUM PIC 9(03).
+               05 WS-ALUNOME PIC A(25).
+           01 WS-EOF PIC A(1).
+       PROCEDURE DIVISION.
+       A01-PROCESSA.
+       OPEN INPUT ARQUIVO.
+       IF WS-FILESTATUS <> 0
+           DISPLAY "ERRO DE ABERTURA. FILE STATUS: " WS-FILESTATUS
+           CLOSE ARQUIVO
+           STOP RUN.
+       PERFORM UNTIL WS-EOF = "Y"
+           READ ARQUIVO INTO WS-ALU
+               AT END MOVE "Y" TO WS-EOF
+               NOT END PERFORM A02-IMPRIME
+           END-READ
+       END-PERFORM.
+       CLOSE ARQUIVO.
+       STOP RUN.
+       A02-IMPRIME.
+       DISPLAY WS-ALU.

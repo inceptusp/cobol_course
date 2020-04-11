@@ -1,0 +1,5 @@
+       SELECT ARQ-CLIENTES
+           ASSIGN TO "CLIENTES.dat"
+               ORGANIZATION IS INDEXED
+               ACCESS IS SEQUENTIAL RECORD KEY IS CCPF
+               FILE STATUS IS WS-FS.

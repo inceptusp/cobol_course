@@ -1,0 +1,5 @@
+       SELECT ARQ-FILMES
+           ASSIGN TO "FILMES.dat"
+               ORGANIZATION IS INDEXED
+               ACCESS IS SEQUENTIAL RECORD KEY IS FCOD
+               FILE STATUS IS WS-FS.

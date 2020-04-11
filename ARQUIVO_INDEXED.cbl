@@ -1,0 +1,36 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PGM001.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+       SELECT ARQ-ENTRADA
+           ASSIGN TO "Aludados.dat"
+               ORGANIZATION IS INDEXED
+               ACCESS IS RANDOM RECORD KEY IS ALU-NUM
+               FILE STATUS IS WS-FS.
+       DATA DIVISION.
+       FILE SECTION.
+       FD ARQ-ENTRADA.
+       01 REG-DATA.
+           05 ALU-NUM PIC X(03).
+           05 ALU-NOME PIC A(25).
+       WORKING-STORAGE SECTION.
+       77 WS-FS PIC 99.
+       01 WS-ALU.
+           05 WS-ALUNUM PIC X(03).
+           05 WS-ALUNOME PIC A(25).
+       01 WS-EOF PIC A(1).
+       PROCEDURE DIVISION.
+       OPEN OUTPUT ARQ-ENTRADA.
+       IF WS-FS <> 0 
+           DISPLAY "ERRO NA ABERTURA WS-FS: " WS-FS
+           CLOSE ARQ-ENTRADA
+           STOP RUN.
+       A03-INCLUI.
+       MOVE 200 TO ALU-NUM.
+       MOVE "ALUNO2" TO ALU-NOME.
+       WRITE REG-DATA.
+       MOVE 100 TO ALU-NUM.
+       MOVE "ALUNO1" TO ALU-NOME.
+       WRITE REG-DATA.
+       CLOSE ARQ-ENTRADA.
